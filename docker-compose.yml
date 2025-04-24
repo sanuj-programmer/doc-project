@@ -3,18 +3,16 @@ version: '3.8'
 services:
   recipe:
     image: iamsanuj/recipe:latest
-    build:
-      context: .
-    container_name: recipe_container
     ports:
-      - target: 3000
-        published: 3000
-        protocol: tcp
-        mode: host
+      - "3000:80"
     networks:
       - recipe_overlay
     deploy:
-      replicas: 1
+      replicas: 2
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 500M
       restart_policy:
         condition: on-failure
 
